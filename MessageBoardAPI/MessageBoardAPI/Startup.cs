@@ -29,6 +29,7 @@ namespace MessageBoardAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IMessageService, MessageService>();
+            services.AddSingleton<ILoginService, LoginService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
