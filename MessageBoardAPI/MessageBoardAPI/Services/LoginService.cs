@@ -11,9 +11,9 @@ namespace MessageBoardAPI.Services
     {
         private readonly List<User> users = new List<User>()
         {
-            new User { UserName = "User1", Password = "Password1"},
-            new User { UserName = "User2", Password = "Password2"},
-            new User { UserName = "User3", Password = "Password3"}
+            new User { UserName = "User 1", Password = "Password1"},
+            new User { UserName = "User 2", Password = "Password2"},
+            new User { UserName = "User 3", Password = "Password3"}
         };
 
         public bool Login(string username, string password)
