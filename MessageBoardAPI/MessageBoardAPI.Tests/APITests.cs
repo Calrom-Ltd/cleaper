@@ -98,6 +98,7 @@ namespace MessageBoardAPI.Tests
             // Act
             var storedMessages = message.GetUserMessages(testMessage.Name);
             bool messageExists = storedMessages.Any(x => x.Name == testMessage.Name && x.MessageText == testMessage.MessageText);
+
             // Assert
             Assert.IsFalse(messageExists);
         }

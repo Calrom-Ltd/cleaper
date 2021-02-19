@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  messageboardapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    image: messageboardapi:v1
+    restart: on-failure
+    ports:
+      - 44301:80
+    container_name: messageboardapi
+networks:
+  default:
+    name: messageboard_default
