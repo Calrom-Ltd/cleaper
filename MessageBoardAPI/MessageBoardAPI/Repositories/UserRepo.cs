@@ -13,6 +13,7 @@ namespace MessageBoardAPI.Repositories
         private readonly IMongoCollection<User> userCollection;
         private const string databaseName = "MessageBoardDev";
         private const string collectionName = "Users";
+        private readonly FilterDefinitionBuilder<User> filterBuilder = Builders<User>.Filter;
 
         public UserRepo(IMongoClient mongoClient)
         {
@@ -22,8 +23,15 @@ namespace MessageBoardAPI.Repositories
 
         public bool Login(string username, string password)
         {
-            //return userCollection.A({ username, password});
-            return true;
+            var filter = filterBuilder.Where(user => user.UserName.Equals(username) && user.Password.Equals(password));
+            if (userCollection.CountDocuments(filter).Equals(1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

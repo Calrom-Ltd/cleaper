@@ -40,8 +40,8 @@ namespace MessageBoardAPI
             {
                 return new MongoClient($"mongodb://localhost:27017");
             });
-            services.AddSingleton<IMessageService, MessagesMongoDbRepository>();
-            services.AddSingleton<ILoginService, LoginService>();
+            services.AddSingleton<IMessageService, MessageRepo>();
+            services.AddSingleton<ILoginService, UserRepo>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

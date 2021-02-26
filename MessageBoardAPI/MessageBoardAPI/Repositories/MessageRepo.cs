@@ -14,6 +14,7 @@ namespace MessageBoardAPI.Repositories
         private readonly IMongoCollection<Message> messageCollection;
         private const string databaseName = "MessageBoardDev";
         private const string collectionName = "Messages";
+        private readonly FilterDefinitionBuilder<Message> filterBuilder = Builders<Message>.Filter;
 
         public MessageRepo(IMongoClient mongoClient)
         {
@@ -33,7 +34,8 @@ namespace MessageBoardAPI.Repositories
 
         public IEnumerable<Message> GetUserMessages(string username)
         {
-            throw new NotImplementedException();
+            var filter = filterBuilder.Eq(message => message.Name, username);
+            return messageCollection.Find(filter).ToList();
         }
 
         
