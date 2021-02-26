@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace MessageBoardAPI.Repositories
 {
-    public class MessagesMongoDbRepository : IMessageService
+    public class MessageRepo : IMessageService
     {
         private readonly IMongoCollection<Message> messageCollection;
         private const string databaseName = "MessageBoardDev";
         private const string collectionName = "Messages";
 
-        public MessagesMongoDbRepository(IMongoClient mongoClient)
+        public MessageRepo(IMongoClient mongoClient)
         {
             IMongoDatabase mongoDatabase = mongoClient.GetDatabase(databaseName);
             messageCollection = mongoDatabase.GetCollection<Message>(collectionName);
