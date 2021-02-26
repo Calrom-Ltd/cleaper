@@ -1,0 +1,12 @@
+{
+    "MessageId": "19b29e88-e0e0-488b-949c-b0c165e5d81e",
+    "Name": "John Smith",
+    "MessageText": "This is Johns first message",
+    "CreatedDate": "2021-02-26"
+}
+{
+    "MessageId": "1501596a-1d2f-4e69-9f41-fb2d7bf48773",
+    "Name": "Jane Smith",
+    "MessageText": "This is Janes first message",
+    "CreatedDate": "2021-02-26"
+}

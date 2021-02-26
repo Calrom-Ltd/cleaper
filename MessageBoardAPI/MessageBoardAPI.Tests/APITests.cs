@@ -67,7 +67,7 @@ namespace MessageBoardAPI.Tests
             var message = new MessageService();
             Message testMessage = new Message()
             {
-                Id = 20001,
+                MessageId = Guid.NewGuid(),
                 Name = username,
                 MessageText = "Test Message 3",
                 CreatedDate = DateTime.Now
@@ -89,7 +89,7 @@ namespace MessageBoardAPI.Tests
             var message = new MessageService();
             Message testMessage = new Message()
             {
-                Id = 20001,
+                MessageId = Guid.NewGuid(),
                 Name = username,
                 MessageText = "ABC",
                 CreatedDate = DateTime.Now

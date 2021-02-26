@@ -1,4 +1,5 @@
-﻿using MessageBoardAPI.Models;
+﻿using MessageBoardAPI.DataContracts;
+using MessageBoardAPI.Models;
 using MessageBoardAPI.Services;
 using MessageBoardAPI.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +37,22 @@ namespace MessageBoardAPI.Controllers
         {
             var messages = messageService.GetUserMessages(username);
             return messages;
+        }
+
+        [HttpPost]
+        public ActionResult<Message> CreateUserMessages(CreateMessage newMessage)
+        {
+            Message message = new Message()
+            {
+                MessageId = Guid.NewGuid(),
+                Name = newMessage.Name,
+                MessageText = newMessage.MessageText,
+                CreatedDate = DateTime.Now
+            };
+
+            messageService.CreateUserMessages(message);
+
+            return message;
         }
     }
 }

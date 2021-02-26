@@ -11,5 +11,7 @@ namespace MessageBoardAPI.Services.IServices
         IEnumerable<Message> GetAllMessages();
 
         IEnumerable<Message> GetUserMessages(string username);
+
+        void CreateUserMessages(Message newMessage);
     }
 }

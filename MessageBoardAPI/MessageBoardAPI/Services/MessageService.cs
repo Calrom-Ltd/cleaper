@@ -12,9 +12,9 @@ namespace MessageBoardAPI.Services
     {
         private readonly List<Message> messages = new List<Message>()
         {
-            new Message { Id = 10001, Name = "User 1", MessageText = "Test Message 1", CreatedDate = DateTime.Now},
-            new Message { Id = 10002, Name = "User 1", MessageText = "Test Message 2", CreatedDate = DateTime.Now},
-            new Message { Id = 20001, Name = "User 2", MessageText = "Test Message 3", CreatedDate = DateTime.Now}
+            new Message { MessageId = Guid.NewGuid(), Name = "User 1", MessageText = "Test Message 1", CreatedDate = DateTime.Now},
+            new Message { MessageId = Guid.NewGuid(), Name = "User 1", MessageText = "Test Message 2", CreatedDate = DateTime.Now},
+            new Message { MessageId = Guid.NewGuid(), Name = "User 2", MessageText = "Test Message 3", CreatedDate = DateTime.Now}
         };
 
         public IEnumerable<Message> GetAllMessages()
@@ -33,6 +33,11 @@ namespace MessageBoardAPI.Services
                 }
             }
             return userMessages;
+        }
+
+        public void CreateUserMessages(Message newMessage)
+        {
+            messages.Add(newMessage);
         }
     }
 }

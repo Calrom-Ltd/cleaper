@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MessageBoardAPI.Repositories;
 using MessageBoardAPI.Services;
 using MessageBoardAPI.Services.IServices;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace MessageBoardAPI
 {
@@ -28,7 +33,14 @@ namespace MessageBoardAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IMessageService, MessageService>();
+            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
+            BsonSerializer.RegisterSerializer(new DateTimeSerializer(BsonType.String));
+
+            services.AddSingleton<IMongoClient>(services => 
+            {
+                return new MongoClient($"mongodb://localhost:27017");
+            });
+            services.AddSingleton<IMessageService, MessagesMongoDbRepository>();
             services.AddSingleton<ILoginService, LoginService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,13 +1,15 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MessageBoardAPI.Models
 {
+    [BsonIgnoreExtraElements]
     public class Message
     {
-        public long Id { get; set; }
+        public Guid MessageId { get; set; }
 
         public string Name { get; set; }
 
