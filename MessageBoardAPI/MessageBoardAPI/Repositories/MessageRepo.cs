@@ -1,43 +1,64 @@
-﻿using MessageBoardAPI.Models;
-using MessageBoardAPI.Services.IServices;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// <copyright file="MessageRepo.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace MessageBoardAPI.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using MessageBoardAPI.Models;
+    using MessageBoardAPI.Services.IServices;
+    using MongoDB.Bson;
+    using MongoDB.Driver;
+
+    /// <summary>
+    /// The Message Repo.
+    /// </summary>
+    /// <seealso cref="MessageBoardAPI.Services.IServices.IMessageService" />
     public class MessageRepo : IMessageService
     {
+        private const string DatabaseName = "MessageBoardDev";
+        private const string CollectionName = "Messages";
         private readonly IMongoCollection<Message> messageCollection;
-        private const string databaseName = "MessageBoardDev";
-        private const string collectionName = "Messages";
         private readonly FilterDefinitionBuilder<Message> filterBuilder = Builders<Message>.Filter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageRepo"/> class.
+        /// </summary>
+        /// <param name="mongoClient">The mongo client.</param>
         public MessageRepo(IMongoClient mongoClient)
         {
-            IMongoDatabase mongoDatabase = mongoClient.GetDatabase(databaseName);
-            messageCollection = mongoDatabase.GetCollection<Message>(collectionName);
+            IMongoDatabase mongoDatabase = mongoClient.GetDatabase(DatabaseName);
+            this.messageCollection = mongoDatabase.GetCollection<Message>(CollectionName);
         }
 
+        /// <summary>
+        /// Creates the user messages.
+        /// </summary>
+        /// <param name="newMessage">The new message.</param>
         public void CreateUserMessages(Message newMessage)
         {
-            messageCollection.InsertOne(newMessage);
+            this.messageCollection.InsertOne(newMessage);
         }
 
+        /// <summary>
+        /// Gets all messages.
+        /// </summary>
+        /// <returns>Gets all user messages.</returns>
         public IEnumerable<Message> GetAllMessages()
         {
-            return messageCollection.Find(new BsonDocument()).ToList();
+            return this.messageCollection.Find(new BsonDocument()).ToList();
         }
 
+        /// <summary>
+        /// Gets the user messages.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>Gets a users messages.</returns>
         public IEnumerable<Message> GetUserMessages(string username)
         {
-            var filter = filterBuilder.Eq(message => message.Name, username);
-            return messageCollection.Find(filter).ToList();
+            var filter = this.filterBuilder.Eq(message => message.Name, username);
+            return this.messageCollection.Find(filter).ToList();
         }
-
-        
     }
 }
