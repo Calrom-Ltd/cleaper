@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment: 
+      MONGO_INITDB_DATABASE: MessageBoardDev
+    ports: 
+      - 27017:27017
+    volumes:
+      - ./MongoDbData:/docker-entrypoint-initdb.d
+      - ./MongoDbVolume:/data/db/
+    container_name: mongo_db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    container_name: mongo_express
+    depends_on: 
+      - mongo
+  messageboardapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    image: messageboardapi:v2
+    restart: on-failure
+    ports:
+      - 44301:80
+    container_name: messageboardapi
+networks:
+  default:
+    name: messageboard_default
