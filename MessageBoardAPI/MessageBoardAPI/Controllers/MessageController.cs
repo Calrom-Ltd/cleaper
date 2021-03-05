@@ -6,6 +6,7 @@ namespace MessageBoardAPI.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using MessageBoardAPI.DataContracts;
     using MessageBoardAPI.Models;
     using MessageBoardAPI.Services.IServices;
@@ -37,9 +38,9 @@ namespace MessageBoardAPI.Controllers
         /// </summary>
         /// <returns>Gets all the user messages.</returns>
         [HttpGet]
-        public IEnumerable<Message> GetAllMessages()
+        public async Task<IEnumerable<Message>> GetAllMessages()
         {
-            var messages = this.messageService.GetAllMessages();
+            var messages = await this.messageService.GetAllMessagesAsync();
             return messages;
         }
 
@@ -51,9 +52,9 @@ namespace MessageBoardAPI.Controllers
         /// <param name="username">The username.</param>
         /// <returns>Get User Messages from username.</returns>
         [HttpGet("{username}")]
-        public IEnumerable<Message> GetUserMessages(string username)
+        public async Task<IEnumerable<Message>> GetUserMessages(string username)
         {
-            var messages = this.messageService.GetUserMessages(username);
+            var messages = await this.messageService.GetUserMessagesAsync(username);
             return messages;
         }
 
@@ -65,7 +66,7 @@ namespace MessageBoardAPI.Controllers
         /// <param name="newMessage">The new message.</param>
         /// <returns>Create a new User Messages.</returns>
         [HttpPost]
-        public ActionResult<Message> CreateUserMessages(CreateMessage newMessage)
+        public async Task<ActionResult<Message>> CreateUserMessages(CreateMessage newMessage)
         {
             Message message = new Message()
             {
@@ -75,7 +76,7 @@ namespace MessageBoardAPI.Controllers
                 CreatedDate = DateTime.Now,
             };
 
-            this.messageService.CreateUserMessages(message);
+            await this.messageService.CreateUserMessagesAsync(message);
 
             return message;
         }

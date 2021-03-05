@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MessageBoardAPI.Tests
 {
@@ -60,7 +61,7 @@ namespace MessageBoardAPI.Tests
 
         [TestMethod]
         [TestCategory("Messages")]
-        public void Messages_GetUserMessages_MessageExists()
+        public async Task Messages_GetUserMessages_MessageExists()
         {
             // Arrange
             string username = "User 2";
@@ -74,7 +75,7 @@ namespace MessageBoardAPI.Tests
             };
 
             // Act
-            var storedMessages = message.GetUserMessages(testMessage.Name);
+            var storedMessages = await message.GetUserMessagesAsync(testMessage.Name);
             bool messageExists = storedMessages.Any(x => x.Name == testMessage.Name && x.MessageText == testMessage.MessageText);
             // Assert
             Assert.IsTrue(messageExists);
@@ -82,7 +83,7 @@ namespace MessageBoardAPI.Tests
 
         [TestMethod]
         [TestCategory("Messages")]
-        public void Messages_GetUserMessages_MessageDoesNotExists()
+        public async Task Messages_GetUserMessages_MessageDoesNotExists()
         {
             // Arrange
             string username = "User 2";
@@ -96,7 +97,7 @@ namespace MessageBoardAPI.Tests
             };
 
             // Act
-            var storedMessages = message.GetUserMessages(testMessage.Name);
+            var storedMessages = await message.GetUserMessagesAsync(testMessage.Name);
             bool messageExists = storedMessages.Any(x => x.Name == testMessage.Name && x.MessageText == testMessage.MessageText);
 
             // Assert

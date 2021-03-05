@@ -6,6 +6,7 @@ namespace MessageBoardAPI.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using MessageBoardAPI.Models;
     using MessageBoardAPI.Services.IServices;
     using MongoDB.Bson;
@@ -36,18 +37,18 @@ namespace MessageBoardAPI.Repositories
         /// Creates the user messages.
         /// </summary>
         /// <param name="newMessage">The new message.</param>
-        public void CreateUserMessages(Message newMessage)
+        public async Task CreateUserMessagesAsync(Message newMessage)
         {
-            this.messageCollection.InsertOne(newMessage);
+            await this.messageCollection.InsertOneAsync(newMessage);
         }
 
         /// <summary>
         /// Gets all messages.
         /// </summary>
         /// <returns>Gets all user messages.</returns>
-        public IEnumerable<Message> GetAllMessages()
+        public async Task<IEnumerable<Message>> GetAllMessagesAsync()
         {
-            return this.messageCollection.Find(new BsonDocument()).ToList();
+            return await this.messageCollection.Find(new BsonDocument()).ToListAsync();
         }
 
         /// <summary>
@@ -55,10 +56,10 @@ namespace MessageBoardAPI.Repositories
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns>Gets a users messages.</returns>
-        public IEnumerable<Message> GetUserMessages(string username)
+        public async Task<IEnumerable<Message>> GetUserMessagesAsync(string username)
         {
             var filter = this.filterBuilder.Eq(message => message.Name, username);
-            return this.messageCollection.Find(filter).ToList();
+            return await this.messageCollection.Find(filter).ToListAsync();
         }
     }
 }
