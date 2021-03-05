@@ -50,7 +50,7 @@ namespace MessageBoardAPI
 
             services.AddSingleton<IMongoClient>(services =>
             {
-                return new MongoClient($"mongodb://localhost:27017");
+                return new MongoClient($"mongodb://mongo:27017");
             });
             services.AddSingleton<IMessageService, MessageRepo>();
             services.AddSingleton<ILoginService, UserRepo>();

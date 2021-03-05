@@ -5,6 +5,7 @@
 namespace MessageBoardAPI.Services.IServices
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using MessageBoardAPI.Models;
 
     /// <summary>
@@ -16,19 +17,19 @@ namespace MessageBoardAPI.Services.IServices
         /// Gets all messages.
         /// </summary>
         /// <returns>Gets all user messages.</returns>
-        IEnumerable<Message> GetAllMessages();
+        Task<IEnumerable<Message>> GetAllMessagesAsync();
 
         /// <summary>
         /// Gets the user messages.
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns>Gets a specific users messages.</returns>
-        IEnumerable<Message> GetUserMessages(string username);
+        Task<IEnumerable<Message>> GetUserMessagesAsync(string username);
 
         /// <summary>
         /// Creates the user messages.
         /// </summary>
         /// <param name="newMessage">The new message.</param>
-        void CreateUserMessages(Message newMessage);
+        Task CreateUserMessagesAsync(Message newMessage);
     }
 }

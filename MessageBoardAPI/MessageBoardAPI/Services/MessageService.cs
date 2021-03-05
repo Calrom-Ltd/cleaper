@@ -6,6 +6,7 @@ namespace MessageBoardAPI.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using MessageBoardAPI.Models;
     using MessageBoardAPI.Services.IServices;
 
@@ -28,9 +29,9 @@ namespace MessageBoardAPI.Services
         /// <returns>
         /// Gets all user messages.
         /// </returns>
-        public IEnumerable<Message> GetAllMessages()
+        public async Task<IEnumerable<Message>> GetAllMessagesAsync()
         {
-            return this.messages;
+            return await Task.FromResult(this.messages);
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace MessageBoardAPI.Services
         /// <returns>
         /// Gets a specific users messages.
         /// </returns>
-        public IEnumerable<Message> GetUserMessages(string username)
+        public async Task<IEnumerable<Message>> GetUserMessagesAsync(string username)
         {
             List<Message> userMessages = new List<Message>();
             foreach (var item in this.messages)
@@ -51,16 +52,17 @@ namespace MessageBoardAPI.Services
                 }
             }
 
-            return userMessages;
+            return await Task.FromResult(userMessages);
         }
 
         /// <summary>
         /// Creates the user messages.
         /// </summary>
         /// <param name="newMessage">The new message.</param>
-        public void CreateUserMessages(Message newMessage)
+        public async Task CreateUserMessagesAsync(Message newMessage)
         {
             this.messages.Add(newMessage);
+            await Task.CompletedTask;
         }
     }
 }
