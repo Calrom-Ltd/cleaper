@@ -6,6 +6,7 @@ namespace MessageBoardAPI.Controllers
     using MessageBoardAPI.DataContracts;
     using MessageBoardAPI.Services.IServices;
     using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The Login Controller.
@@ -34,9 +35,9 @@ namespace MessageBoardAPI.Controllers
         /// <param name="login">The login.</param>
         /// <returns>the login service.</returns>
         [HttpPost]
-        public bool Login([FromBody] Login login)
+        public async Task<bool> Login([FromBody] Login login)
         {
-            var status = this.loginService.Login(login.UserName, login.Password);
+            var status = await this.loginService.LoginAsync(login.UserName, login.Password);
             return status;
         }
     }

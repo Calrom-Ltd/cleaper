@@ -1,9 +1,9 @@
 ﻿// <copyright file="ILoginService.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
-
 namespace MessageBoardAPI.Services.IServices
 {
+    using System.Threading.Tasks;
     /// <summary>
     /// The Login Service Interface.
     /// </summary>
@@ -15,6 +15,6 @@ namespace MessageBoardAPI.Services.IServices
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <returns>A Login boolean.</returns>
-        public bool Login(string username, string password);
+        public Task<bool> LoginAsync(string username, string password);
     }
 }

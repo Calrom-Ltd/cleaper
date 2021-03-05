@@ -7,6 +7,7 @@ namespace MessageBoardAPI.Repositories
     using MessageBoardAPI.Models;
     using MessageBoardAPI.Services.IServices;
     using MongoDB.Driver;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The User Repo.
@@ -35,10 +36,10 @@ namespace MessageBoardAPI.Repositories
         /// <param name="username">The username.</param>
         /// <param name="password">The password.</param>
         /// <returns>A boolean for login.</returns>
-        public bool Login(string username, string password)
+        public async Task<bool> LoginAsync(string username, string password)
         {
             var filter = this.filterBuilder.Where(user => user.UserName.Equals(username) && user.Password.Equals(password));
-            if (this.userCollection.CountDocuments(filter).Equals(1))
+            if ((await this.userCollection.CountDocumentsAsync(filter)).Equals(1))
             {
                 return true;
             }

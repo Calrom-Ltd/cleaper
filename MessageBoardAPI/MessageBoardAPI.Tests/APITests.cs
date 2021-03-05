@@ -13,7 +13,7 @@ namespace MessageBoardAPI.Tests
     {
         [TestMethod]
         [TestCategory("Login")]
-        public void Login_Success()
+        public async Task Login_Success()
         {
             // Arrange
             string username = "User 1";
@@ -21,7 +21,7 @@ namespace MessageBoardAPI.Tests
             var login = new LoginService();
 
             // Act
-            bool status = login.Login(username, password);
+            bool status = await login.LoginAsync(username, password);
 
             // Assert
             Assert.IsTrue(status);
@@ -29,7 +29,7 @@ namespace MessageBoardAPI.Tests
 
         [TestMethod]
         [TestCategory("Login")]
-        public void Login_PasswordFailure()
+        public async Task Login_PasswordFailure()
         {
             // Arrange
             string username = "User 1";
@@ -37,7 +37,7 @@ namespace MessageBoardAPI.Tests
             var login = new LoginService();
 
             // Act
-            bool status = login.Login(username, password);
+            bool status = await login.LoginAsync(username, password);
 
             // Assert
             Assert.IsFalse(status);
@@ -45,7 +45,7 @@ namespace MessageBoardAPI.Tests
 
         [TestMethod]
         [TestCategory("Login")]
-        public void Login_UserFailure()
+        public async Task Login_UserFailure()
         {
             // Arrange
             string username = "User 2";
@@ -53,7 +53,7 @@ namespace MessageBoardAPI.Tests
             var login = new LoginService();
 
             // Act
-            bool status = login.Login(username, password);
+            bool status = await login.LoginAsync(username, password);
 
             // Assert
             Assert.IsFalse(status);

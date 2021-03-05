@@ -6,6 +6,7 @@ namespace MessageBoardAPI.Services
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using MessageBoardAPI.Models;
     using MessageBoardAPI.Services.IServices;
 
@@ -33,10 +34,10 @@ namespace MessageBoardAPI.Services
         /// <returns>
         /// A Login boolean.
         /// </returns>
-        public bool Login(string username, string password)
+        public async Task<bool> LoginAsync(string username, string password)
         {
             bool status = this.users.Any(x => x.UserName == username && x.Password == password);
-            return status;
+            return await Task.FromResult(status);
         }
     }
 }
