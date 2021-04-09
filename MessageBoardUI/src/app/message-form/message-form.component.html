@@ -1,0 +1,21 @@
+<div>
+    <h2>Add A New Message</h2>
+    <div>
+        <span>User: </span>
+        <input for="new-message-user" #messageUser placeholder="User Name">
+    </div>
+    <div>
+        <label >Message: </label>
+        <input for="new-message-messageText" #messageText placeholder="Enter Message Here">
+    </div>
+</div>
+
+<div>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button class="" (click)="addMessage(messageUser.value, messageText.value); messageUser.value=''; messageText.value='' ">Add Message</button>
+</div>
+
+<div>
+    <button (click)="goBack()">Back</button>
+</div>
+
