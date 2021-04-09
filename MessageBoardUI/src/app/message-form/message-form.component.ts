@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../message';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
 
@@ -11,7 +11,7 @@ import { MessageService } from '../message.service';
 })
 export class MessageFormComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private location: Location, private messageService : MessageService) { }
+  constructor(private router: Router, private location: Location, private messageService : MessageService) { }
 
   messages : Message[] = [];
 
@@ -23,7 +23,9 @@ export class MessageFormComponent implements OnInit {
   }
 
   addMessage(name :string, messageText : string) : void {
-    this.messageService.createUserMessage({ name, messageText } as Message).subscribe(message => this.messages.push(message));
+    this.messageService.createUserMessage({ name, messageText } as Message).subscribe((message) => {
+      this.messages.push(message), 
+      this.router.navigate(['/messages'])});
   }
 
 }
