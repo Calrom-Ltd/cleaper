@@ -11,7 +11,9 @@ import { MessageService } from '../message.service';
 })
 export class MessageFormComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private location: Location, private heroService : MessageService) { }
+  constructor(private route: ActivatedRoute, private location: Location, private messageService : MessageService) { }
+
+  messages : Message[] = [];
 
   ngOnInit(): void {
   }
@@ -20,9 +22,8 @@ export class MessageFormComponent implements OnInit {
     this.location.back();
   }
 
-  // save(): void {
-  //   this.heroService.updateHero(this.hero)
-  //     .subscribe(() => this.goBack());
-  // }
+  addMessage(name :string, messageText : string) : void {
+    this.messageService.createUserMessage({ name, messageText } as Message).subscribe(message => this.messages.push(message));
+  }
 
 }

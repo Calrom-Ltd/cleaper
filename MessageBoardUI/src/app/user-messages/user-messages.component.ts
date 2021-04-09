@@ -11,6 +11,7 @@ import { MessageService } from '../message.service';
 export class UserMessagesComponent implements OnInit {
 
   messages : Message[] = [];
+  filteredMessages : Message[] = [];
 
   constructor(private messageService : MessageService) { }
 
@@ -20,5 +21,9 @@ export class UserMessagesComponent implements OnInit {
 
   getMessages() : void {
     this.messageService.getMessages().subscribe(messages => this.messages = messages);
+  }
+
+  getFilteredMessages(username : string) : void {
+    this.messageService.getFilteredMessages(username).subscribe(messages => this.messages = messages);
   }
 }

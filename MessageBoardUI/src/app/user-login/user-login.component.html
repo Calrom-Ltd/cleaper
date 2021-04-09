@@ -1,6 +1,17 @@
 <h1>Welcome to the Training Message Board</h1>
 <div>
+    <h2>Login</h2>
     <div>
-        <button class="nav-item nav-link-edit" [routerLink]="['/messages']">Login</button >
+        <span>User: </span>
+        <input for="username" #username placeholder="User Name" type="text" required>
+    </div>
+    <div>
+        <label >Message: </label>
+        <input for="password" #password placeholder="Password" type="text" required>
+    </div>
+</div>
+<div>
+    <div>
+        <button class="nav-item nav-link-edit" (click)="userlogin(username.value, password.value); username.value=''; password.value='';">Login</button>
     </div>
 </div>

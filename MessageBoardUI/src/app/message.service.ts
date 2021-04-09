@@ -9,16 +9,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class MessageService {
 
-  private messageUrl = '/api/Message';
-
+  private allMessagesUrl = '/api/Message';
   constructor(private http: HttpClient) { }
 
-  // getMessages(): Observable<Message[]> {
-  //   const messages = of(MESSAGES)
-  //   return messages;
-  // }
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   getMessages(): Observable<Message[]> {
-    return this.http.get<Message[]>(this.messageUrl)
+    return this.http.get<Message[]>(this.allMessagesUrl);
+  }
+
+  getFilteredMessages(username : string): Observable<Message[]> {
+    return this.http.get<Message[]>(this.allMessagesUrl + "/" + encodeURI(username));
+  }
+
+  createUserMessage(message : Message): Observable<Message> {
+    return this.http.post<Message>(this.allMessagesUrl, message, this.httpOptions);
   }
 }

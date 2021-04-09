@@ -1,0 +1,7 @@
+//Inport data to DB from local files
+docker exec mongo_db sh -c 'exec mongoimport --db=MessageBoardDev --collection=Users --file=./docker-entrypoint-initdb.d/Users.json'
+docker exec mongo_db sh -c 'exec mongoimport --db=MessageBoardDev --collection=Messages --file=./docker-entrypoint-initdb.d/Messages.json'
+ 
+//Export data from DB to local files 
+docker exec mongo_db sh -c 'exec mongoexport --db=MessageBoardDev --collection=Users --out=/docker-entrypoint-initdb.d/Users.json --pretty'
+docker exec mongo_db sh -c 'exec mongoexport --db=MessageBoardDev --collection=Messages --out=/docker-entrypoint-initdb.d/Messages.json --pretty'
